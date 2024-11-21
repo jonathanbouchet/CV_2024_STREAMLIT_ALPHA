@@ -1,15 +1,9 @@
-import openai
-from dotenv  import dotenv_values
-from pydantic import BaseModel, Field
+import streamlit as st
 import models
 import db
 from operator import itemgetter
 
-config = dotenv_values(".env")
-client = openai.OpenAI(api_key=config["OPENAI_API_KEY"])
-
 COLLECTION_NAME = "DB_CHATS"
-
 
 def load_simple_context():
     return """
@@ -55,8 +49,8 @@ def get_topical_response(query: str, context: str):
     :return _type_: _description_
     """
     messages = make_messages(query=query, context=context)
-    response = client.beta.chat.completions.parse(
-        model=config["OPEN_AI_MODEL_4o"],
+    response = st.session_state["client"].beta.chat.completions.parse(
+        model=st.session_state["openai_model_4o"],
         response_format=models.ResponseModel,
         messages=messages)
     
@@ -80,8 +74,8 @@ def get_final_response(query: str, context: str) -> str:
     messages=[
         {"role":"system", "content": system_message},
         {"role": "user", "content": query}]
-    response = client.chat.completions.create(
-        model=config["OPEN_AI_MODEL_4o_MINI"],
+    response = st.session_state["client"].chat.completions.create(
+        model=st.session_state["openai_model_4o_mini"],
         temperature=0.0,
         messages=messages
     )
@@ -95,7 +89,9 @@ def chat_completion(query: str):
     :param str query: _description_
     :return _type_: _description_
     """
-    moderation_response = client.moderations.create(
+    if 'client' not in st.session_state:
+        db.set_llm()
+    moderation_response = st.session_state["client"].moderations.create(
         model="omni-moderation-latest",
         input=query)
     # print(colored(moderation_response,"cyan"))
@@ -122,9 +118,9 @@ def chat_completion(query: str):
     
 
 def simple_completion(messages: list):
-    res = client.chat.completions.create(
+    res = st.session_state["client"].chat.completions.create(
         messages=messages,
-        model=config["OPEN_AI_MODEL_4o_MINI"],
+        model=st.session_state["openai_model_4o_mini"],
         temperature=0)
     return res.choices[0].message.content
 

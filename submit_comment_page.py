@@ -46,3 +46,5 @@ with st.form(key = 'user_info'):
             for error in errors:
                 error_msg += f"{error['msg']}\n"
             st.error(f"{error_msg}")
+
+# st.json(st.session_state)

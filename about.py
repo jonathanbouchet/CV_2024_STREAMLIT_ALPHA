@@ -10,6 +10,8 @@ st.write(
     7+ years of professional experience in developing cutting-edge machine learning solutions for insurance leaders"""
 )
 
+# st.json(st.session_state)
+
 left_co, cent_co,last_co = st.columns(3)
 with cent_co:
     st.image("assets/JB_pic.png", width=500)

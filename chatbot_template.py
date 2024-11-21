@@ -1,5 +1,10 @@
 import streamlit as st
 import utils
+import db
+
+# if 'llm_initialized' not in st.session_state:
+#       db.set_llm()
+
 st.title("Ask Me Anything")
 
 # Initialize session state for chat messages
@@ -61,7 +66,8 @@ with col1:
                 st.write(r)
                 st.session_state.chat_messages.append({"role": "assistant", "content": r})
         st.session_state.prompt_selection = None
-
+    # st.json(st.session_state)
+    
 with col2:
     pass
     # st.json(st.session_state)

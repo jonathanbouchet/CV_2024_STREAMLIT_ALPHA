@@ -1,6 +1,22 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import BaseModel, SecretStr, field_serializer, Field, EmailStr
 
+class Settings(BaseSettings):
+    """model to define the app settings
+
+    :param BaseSettings:
+    """
+    OPENAI_API_KEY: SecretStr | None = None
+    OPEN_AI_MODEL_4o_MINI: str| None = None
+    OPEN_AI_MODEL_4o: str| None = None
+
+    model_config = SettingsConfigDict(env_file=".env")
+
+    @field_serializer('OPENAI_API_KEY')
+    def dump_secret(self, v):
+        return v.get_secret_value()
+    
+
 class FirebaseSettings(BaseSettings):
     """model to define the firebase connection settings
 
