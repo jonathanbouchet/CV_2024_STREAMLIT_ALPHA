@@ -9,6 +9,7 @@ theme:
   - App: streamlit_app.md
   - pydantic models: models.md
   - database: db.md
+  - utils: utils.md
   features:
     - navigation.tabs
     - navigation.sections
