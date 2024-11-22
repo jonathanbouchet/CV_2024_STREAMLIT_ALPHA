@@ -117,11 +117,20 @@ def chat_completion(query: str):
         return f"topic flagged:{m[0]}. I can't provide information or guidance on illegal or harmful activities."
     
 
-def simple_completion(messages: list):
-    res = st.session_state["client"].chat.completions.create(
-        messages=messages,
-        model=st.session_state["openai_model_4o_mini"],
-        temperature=0)
-    return res.choices[0].message.content
+def simple_completion(messages: list, stream: bool = False):
+    if stream:
+        res = st.session_state["client"].chat.completions.create(
+            messages=messages,
+            model=st.session_state["openai_model_4o_mini"],
+            temperature=0, 
+            stream=True)
+        return res
+    else:
+        res = st.session_state["client"].chat.completions.create(
+            messages=messages,
+            model=st.session_state["openai_model_4o_mini"],
+            temperature=0, 
+            stream=False)
+        return res.choices[0].message.content
 
     

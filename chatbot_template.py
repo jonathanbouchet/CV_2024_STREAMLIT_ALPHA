@@ -48,7 +48,7 @@ with col1:
         with st.spinner("searching ..."):  
             with st.chat_message("assistant"):
                 # r = f"you wrote `{st.session_state.direction}`"
-                # r = utils.simple_completion(messages=st.session_state.chat_messages)
+                # r = utils.simple_completion(messages=st.session_state.chat_messages, stream=False)
                 r = utils.chat_completion(query= st.session_state.direction)
                 st.write(r)
                 st.session_state.chat_messages.append({"role": "assistant", "content": r})
@@ -60,8 +60,9 @@ with col1:
                 st.write(str(st.session_state.prompt_selection))
         with st.spinner("searching ..."):  
             with st.chat_message("assistant"):
+                is_streaming: bool = False
                 # r = f"you wrote `{st.session_state.prompt_selection}`"
-                # r = utils.simple_completion(messages=st.session_state.chat_messages)
+                # r = utils.simple_completion(messages=st.session_state.chat_messages, stream=is_streaming)
                 r = utils.chat_completion(query=st.session_state.prompt_selection)
                 st.write(r)
                 st.session_state.chat_messages.append({"role": "assistant", "content": r})
