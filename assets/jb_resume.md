@@ -1,13 +1,11 @@
 # Work Experience
-### Freelance, Aug 2024 - Nov 2024
+
+### OMNISCIENCE STRATEGIES CORPORATION, July 2023 - Present
 Director of Data Science
 - Market and Customer Research for a GenAI project
-- Evaluation and experimentations of RAG system, Security and Compliance, Prompt Optimization, Voice Feature.
-
-### Freelance, March 2024 - May 2024
-Director of Data Science
-
+    -  Evaluation and experimentations of RAG system, Security and Compliance, Prompt Optimization, Voice Feature.
 - roadmap design around transforming customer technology landscape to better support their strategic goals and operational efficiency.
+- Organized and participated in a workshop around advanced applications of AI in risks managements.
 
 ### Entefy, Jan 2023 - July 2023
 Senior Data scientist                            
