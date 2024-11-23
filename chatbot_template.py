@@ -63,9 +63,21 @@ with col1:
                 is_streaming: bool = False
                 # r = f"you wrote `{st.session_state.prompt_selection}`"
                 # r = utils.simple_completion(messages=st.session_state.chat_messages, stream=is_streaming)
-                r = utils.chat_completion(query=st.session_state.prompt_selection)
-                st.write(r)
-                st.session_state.chat_messages.append({"role": "assistant", "content": r})
+                # Create a placeholder for the streaming text
+                if is_streaming:
+                    message_placeholder = st.empty()
+                    full_response: str = ""
+
+                    #Stream the response
+                    for chunk in r:
+                        print(chunk)
+                        if chunk.choices[0].delta.content is not None:
+                            full_response += chunk.choices[0].delta.content
+                            message_placeholder.markdown(full_response + "▌")
+                else:
+                    r = utils.chat_completion(query=st.session_state.prompt_selection)
+                    st.write(r)
+                    st.session_state.chat_messages.append({"role": "assistant", "content": r})
         st.session_state.prompt_selection = None
     # st.json(st.session_state)
     
