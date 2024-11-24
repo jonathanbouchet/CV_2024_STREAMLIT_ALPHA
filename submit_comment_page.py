@@ -13,7 +13,7 @@ if "formbtn_state" not in st.session_state:
     st.session_state.formbtn_state = False
     
 st.subheader("Request / Feedback / Comments")
-with st.form(key = 'user_info'):
+with st.form(key = 'user_info', clear_on_submit=True):
     st.write('Some Information about you')
 
     name = st.text_input(label="Name", help="your name")
